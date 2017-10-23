@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>NTUU KPI</title>	
+		<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="screen"/>
+		<script th:src="@{/js/jquery.js}"></script>
+		<script th:src="@{/js/student.js}"></script>
+	</head>
+<body>
+
+<!-- Page -->
+<div id="page">
+	<div th:include="fragments/header::header"  th:remove="tag"></div>
+	
+	<div id="main">
+	
+		<div id="content">
+			<div class="post" id="post-612">			
+				<div class="post-title">
+					<h2>Інформація про диплом</h2>
+				</div>
+				
+				<section class="post-entry">
+				    
+				    <div  th:unless="${diplom}" id="diplomNotExist"  th:remove="tag">
+				    	<fieldset >
+				    		<br/>
+							
+							<h1>
+								<center>
+									Нажаль, у Вас немає доданого диплому. <a href="/student/diplomAddPage">Натисніть тут щоб додати</a>
+								</center>
+							</h1>
+				    		<br/>
+				    	</fieldset>
+				    </div>
+				    
+				    
+				    <div  th:if="${diplom}" id="diplomExist"  th:remove="tag">
+
+						<fieldset >
+							<legend><h2>Диплом</h2></legend>
+							
+							<h3 >Тема:  <span th:text="${diplom.name}"/></h3>
+							<h3 >Файл:  <a th:href="${diplom.filePath}" th:attr="download=${diplom.filePath}">файл диплому </a></h3>
+						</fieldset>
+
+						<fieldset th:if="${marks}">
+							<legend><h2>Статус</h2></legend>
+							
+							<h3 >Середня оцінка :  <span th:text="${averageMarks}"/> балів</h3>
+							<h3 >Статус:  <span>Ваш диплом перевірили наступні викладачі.</span></h3>
+							
+	
+							<details>
+	
+								<summary >Більше деталей про оцінку</summary>
+								<fieldset th:each="mark, iterStat: ${marks}">
+									<details class="markDetails" >
+										<summary> 
+											Викладач <span th:text="${iterStat.count}"/>:  <span th:text="${totalMarks[mark.key]}"/> балів
+										</summary>
+										<ul>
+											<li th:each="criteria : ${mark.value}"><span id="criteriaName" th:text="${criteria.criteria}"/>  - <span th:text="${criteria.points}"/> балів</li>
+										</ul>
+									</details>
+								</fieldset>	
+							</details>
+						</fieldset>
+					</div>	
+				</section>
+			</div>	
+		</div>
+
+		
+		<div id="sidebar">
+			<div id="sidebar-right">
+				<div th:include="fragments/menus::studentMenu('diplomInfo')"  th:remove="tag"></div>		
+			</div>
+		</div>
+		<div class="clear"/>
+	</div>
+		
+	<div th:include="fragments/footer::footer"  th:remove="tag"></div>
+</div>
+</body>
+</html>

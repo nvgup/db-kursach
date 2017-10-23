@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>NTUU KPI</title>	
+		<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="screen"/>
+		<script th:src="@{/js/jquery.js}"></script>
+		<script th:src="@{/js/student.js}"></script>
+	</head>
+<body>
+
+<!-- Page -->
+<div id="page">
+	<div th:include="fragments/header::header"  th:remove="tag"></div>
+	
+	<div id="main">
+	
+		<div id="content">
+			<div class="post" id="post-612">			
+				<div class="post-title">
+					<h2>Інформація про диплом</h2>
+				</div>
+				
+				<section class="post-entry">
+				
+					<fieldset id="errorDetails" th:if="${!#strings.isEmpty(error)}">
+					 	<span th:text="${error}"/>	
+					</fieldset> 
+				
+					<form id="registerForm" class="post-item" method="post" action="/student/diplomCreate" enctype="multipart/form-data">
+						<fieldset >
+							<legend><h2>Диплом</h2></legend>
+							<ol>
+								<li>
+									<label for="name">Тема роботи*:</label> 
+									<input id="name" type="text" name="name" maxlength="199" title="Дане поле обовязкове для заповнення та не повинно перевищувати 200 символів" placeholder="Введіть назву диплому" required='true'/><br/>
+								</li>
+								<li>
+									<label for="diplomDate">Файл*:</label>
+									<input id="diplomDate" type="file" name="file" title="Виберіть файл диплому" required='true'/> <br/>
+								</li>
+							</ol>	
+						</fieldset>
+						
+						<input type="submit" value="Створити"/>
+					</form>	
+				</section>
+			</div>	
+		</div>
+
+		
+		<div id="sidebar">
+			<div id="sidebar-right">
+				<div th:include="fragments/menus::studentMenu('diplomAdd')"  th:remove="tag"></div>		
+			</div>
+		</div>
+		<div class="clear"/>
+	</div>
+		
+	<div th:include="fragments/footer::footer"  th:remove="tag"></div>
+</div>
+</body>
+</html>

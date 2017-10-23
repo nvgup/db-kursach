@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>NTUU KPI</title>	
+		<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="screen"/>
+		<script th:src="@{/js/jquery.js}"></script>
+		<script th:src="@{/js/admin.js}"></script>
+	</head>
+
+<body>
+
+<!-- Page -->
+<div id="page">
+	<div th:include="fragments/header::header"  th:remove="tag"></div>
+	
+	<div id="main">
+	
+		<div id="content">
+			<div class="post" id="post-612">			
+				<div class="post-title">
+					<h2>Створити користувача</h2>
+				</div>
+				
+				<section class="post-entry">
+				    <fieldset id="errorDetails" th:if="${!#strings.isEmpty(error)}">
+					 	<span th:text="${error}"/>	
+					</fieldset> 				
+					<form id="registerForm" class="post-item" method="post" th:object="${user}" action="/admin/user/create">
+					 	<fieldset>
+					 		<legend><h2>Дані авторизації</h2></legend>
+							<ol>
+								<li>
+									<label for="login">Логін*:</label> 
+									<input id="login" type="text" th:value="${login}" th:field="*{login}" maxlength ="19" title="Дане поле обовязкове для заповнення" placeholder="Введіть логін" required='true' /><br/>
+								</li>
+								<li>
+									<label for="login">Пароль*:</label> 
+									<input id="login" type="password" th:value="${password}" th:field="*{password}"  maxlength ="19" title="Введіть пароль не менше ніж з 6 символів" placeholder="Введіть пароль" pattern=".{6,}" required='true' /><br/>
+								</li>
+								<li>
+									<label for="userType">Тип користувача*:</label> 
+									<select id="userType" required="required"  th:field="*{type}" title="Дане поле обовязкове для заповнення">
+										<option value="" th:selected="true"></option>
+										<option value="студент">Студент</option>
+										<option value="викладач">Викладач</option>
+										<option value="адмін">Адмін</option>
+									</select>
+								</li>	
+							</ol>	
+						</fieldset>
+						<fieldset>
+							<legend><h2>ПІД</h2></legend>
+							<ol>	
+								<li>
+									<label for="lastName">Прізвище*:</label> 
+									<input id="lastName" type="text"  th:field="*{lastName}" th:value="${lastName}" maxlength ="49" placeholder="Введіть Прізвище" required='true'/><br/>
+								</li>
+								<li>
+									<label for="firstName">Ім'я*:</label> 
+									<input id="firstName" type="text" th:field="*{firstName}" th:value="${firstName}" maxlength ="49" placeholder="Введіть Ім'я"  required='true'/><br/>
+								</li>
+								<li>
+									<label for="surName">По-батькові*:</label> 
+									<input id="surName" type="text" th:field="*{surName}" th:value="${surName}" maxlength ="49" placeholder="Введіть По-батькові" required='true'/><br/>
+								</li>
+							</ol>
+						</fieldset>
+						<fieldset>
+							<legend><h2>Контактні дані</h2></legend>
+							<ol>
+								<li>
+									<label for="phone">Тлефонний номер:</label> 
+									<input id="phone" type="text"  th:field="*{phone}" th:value="${phone}" title="Номер повинен слідувати формату: (093)-79-143-06" placeholder="Введіть номер в форматі (093)-79-143-06 " pattern="\(0\d{2}\)-\d{2}-\d{3}-\d{2}"/><br/>
+								</li>
+								<li>
+									<label for="email">Ваш емейл*:</label>
+									<input id="email" type="email" th:field="*{email}" th:value="${email}"  maxlength ="19" title="Ваш емайл в коректному вигляді" placeholder="nadya.net2@mail.ru"  /> <br/>
+								</li>
+							</ol>
+						</fieldset>	
+						<fieldset id="studendData" style="display:none">
+							<legend><h2>Специфічні дані для типу користувача</h2></legend>	
+							<ol>	
+								<li>
+									<label for="group">Група*:</label>
+									<select id="group" required="required" 
+										th:field="*{facultyName}" disabled="disabled" title="Дане поле обовязкове для заповнення">
+										<option value=""/>
+										<option
+											th:each="group : ${groups}"
+											th:text="${group}" 
+											th:value="${group}">
+										</option>
+									</select>
+								</li>
+							</ol>	
+						</fieldset>
+						
+						<input type="submit" value="Створити"/>
+					</form>				
+				</section>
+			</div>	
+		</div>
+
+		
+		<div id="sidebar">
+			<div id="sidebar-right">
+				<div th:include="fragments/menus::adminMenu('addUser')"  th:remove="tag"></div>		
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+		
+	<div th:include="fragments/footer::footer"  th:remove="tag"></div>
+</div>
+</body>
+</html>

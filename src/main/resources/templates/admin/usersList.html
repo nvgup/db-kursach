@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>NTUU KPI</title>	
+		<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="screen"/>
+	</head>
+
+<body>
+
+<!-- Page -->
+<div id="page">
+	<div th:include="fragments/header::header"  th:remove="tag"></div>
+	
+	<div id="main">
+	
+		<div id="content">
+			<div class="post" id="post-612">			
+				<section class="post-entry">
+					<form id="registerForm" method="get">
+					    <fieldset>
+							<legend><h2>Вітаємо, <span th:text="${currentUser.lastName} + ' ' + ${currentUser.firstName}+ ' ' + ${currentUser.surName}"></span></h2></legend>
+							<ol>
+								<li>
+									<label for="name" style="width:300px;">Виберіть категорію бажаних користувачів :</label> 
+									<select name="userType">
+										<option value="" th:selected="${!#strings.isEmpty(userType)}">Всі</option>
+										<option value="студент" th:selected="${userType}=='студент'">Студенти</option>
+										<option value="викладач" th:selected="${userType}=='викладач'">Викладачі</option>
+										<option value="адмін" th:selected="${userType}=='адмін'">Адміністратори</option>
+									</select>
+								</li>
+							</ol>
+				
+				  			<input type="submit" value="Знайти користувачів"/>
+						  
+						  	<br/><br/>
+						    <p><h2><center>Знайдені користувачі</center></h2></p>
+						    <hr/>
+						    
+						    <div id="usersList">	
+								<table class="responstable">
+									<tr>
+										<th >Студент</th>
+										<th>Тип</th>
+										<th>Номер телефону</th>
+										<th>Можливі дії</th>	
+								  	</tr>
+								  	<tr th:each="user : ${usersList}">
+										<td th:text="${user.lastName} + ' ' + ${user.firstName}" />
+										<td th:text="${user.type}" />
+										<td th:text="${user.phone}" />
+										<td>
+											<a th:href="'user/edit/' + ${user.login}" >Перейти</a>
+											<a th:unless="${user.login == currentUser.login} " th:href="'user/remove/' + ${user.login}" class="red">Видалити</a>
+										</td>
+									</tr>
+								</table>
+							</div>	
+						</fieldset>	
+					</form>	
+				</section>
+			</div>	
+		</div>
+
+		
+		<div id="sidebar">
+			<div id="sidebar-right">
+				<div th:include="fragments/menus::adminMenu('usersList')"  th:remove="tag"></div>			
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+		
+	<div th:include="fragments/footer::footer"  th:remove="tag"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>NTUU KPI</title>	
+		<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="screen"/>
+	</head>
+
+<body>
+
+<!-- Page -->
+<div id="page">
+	<div th:include="fragments/header::header"  th:remove="tag"></div>	
+	
+	<div id="main">
+	
+		<div id="content">
+			<div class="post" id="post-612">			
+				<section class="post-entry">
+					<fieldset>
+						<legend><h2>Вітаємо, <span th:text="${currentUser.lastName} + ' ' + ${currentUser.firstName}+ ' ' + ${currentUser.surName}"/></h2></legend>
+
+						<h3 >Логін:  <span th:text="${currentUser.login}"/></h3>
+						<h3 >Група:  <span th:text="${currentUser.facultyName}"/></h3>
+						<h3 th:if="${!#strings.isEmpty(currentUser.phone)}">Тлефонний номер:  <span th:text="${currentUser.phone}"/></h3>
+						<h3 th:if="${!#strings.isEmpty(currentUser.email)}">Емейл:  <span th:text="${currentUser.email}"/></h3>
+						<h3 >Диплом:
+						     <a th:if="${diplom}" href="/student/diplomInfoPage" th:text="${diplom.name}"></a>  
+						     <span th:unless="${diplom}">Нажаль, у Вас ще немає зареєстрованого диплому.</span></h3>
+					</fieldset>
+				</section>
+			</div>	
+		</div>
+
+		
+		<div id="sidebar">
+			<div id="sidebar-right">
+				<div th:include="fragments/menus::studentMenu('main')"  th:remove="tag"></div>		
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+		
+	<div th:include="fragments/footer::footer"  th:remove="tag"></div>
+</div>
+</body>
+</html>

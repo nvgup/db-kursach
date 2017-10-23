@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+	<body>
+
+    <div th:fragment="studentMenu(selectedItem)">
+		<section class="sidebar-box" >
+		    <h3>МЕНЮ</h3>
+			<div class="akpc_report">
+				<ul>
+					<li>
+						<a th:class="(${selectedItem}=='main')? 'active':''" href="/student/main">Головна</a>
+					</li>
+					<li>
+						<a th:class="(${selectedItem}=='contactInfo')? 'active':''" href="/student/contactInfo/edit">Змінити контакти</a>
+					</li>
+					<li>
+						<a  th:class="(${selectedItem}=='changePassword')? 'active':''"  href="/student/changePasswordPage">Змінити пароль</a>
+					</li>
+					<li>
+						<a th:class="(${selectedItem}=='diplomInfo')? 'active':''"  href="/student/diplomInfoPage">Диплом</a>
+					</li>
+					<li>
+						<a href="/logout">Вийти</a>
+					</li>
+				</ul>
+			</div>
+		</section>		
+	</div>
+
+	<div th:fragment="adminMenu(selectedItem)">
+		<section class="sidebar-box"><h3>МЕНЮ</h3>
+			<div class="akpc_report">
+				<ul>
+					<li>
+						<a th:class="(${selectedItem}=='usersList')? 'active':''" href="/admin/main">Список користувачів</a>	
+					</li>
+					<li>
+						<a th:class="(${selectedItem}=='addUser')? 'active':''" href="/admin/user/add">Додати користувача</a>	
+					</li>
+					<li>
+						<a href="/logout">Вийти</a>
+					</li>
+				</ul>
+			</div>
+		</section>		
+	</div>
+	
+	<div th:fragment="teacherMenu(selectedItem)">
+		<section class="sidebar-box"><h3>МЕНЮ</h3>
+			<div class="akpc_report">
+				<ul>
+					<li>
+						<a th:class="(${selectedItem}=='main')? 'active':''" href="/teacher/main">Список дипломів</a>	
+					</li>
+					<li>
+						<a href="/logout">Вийти</a>
+					</li>
+				</ul>
+			</div>
+		</section>		
+	</div>
+
+	</body>
+</html>
